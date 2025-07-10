@@ -81,6 +81,18 @@ const Dashboard = () => {
       category: "security",
       price: "$119",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=250&fit=crop"
+    },
+    {
+      id: 7,
+      title: "Soft skills",
+      instructor: "Debadarshan Sir",
+      students: 1654,
+      rating: 4.7,
+      duration: "12 weeks",
+      progress: 20,
+      category: "Confidence Builder",
+      price: "$119",
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=250&fit=crop"
     }
   ];
 
