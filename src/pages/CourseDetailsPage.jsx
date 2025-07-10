@@ -1,46 +1,34 @@
+// components/CourseDetailsPage.js
 import React, { useState } from 'react';
 import { ArrowLeft, Play, FileText, CheckCircle, Lock, Clock, Users, Star, Award } from 'lucide-react';
 
-const CourseDetailsPage = () => {
-  const [selectedCourse, setSelectedCourse] = useState(null);
+const CourseDetailsPage = ({ course, onBackClick }) => {
   const [completedItems, setCompletedItems] = useState(new Set());
 
-  // Sample course data - in real app, this would come from props or API
+  // Enhanced course data with curriculum
   const courseData = {
-    id: 1,
-    title: "Advanced React Development",
-    instructor: "Sarah Johnson",
-    students: 2847,
-    rating: 4.8,
-    duration: "12 weeks",
-    progress: 65,
-    category: "development",
-    price: "$99",
-    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=400&fit=crop",
-    description: "Master advanced React concepts including hooks, context, performance optimization, and modern patterns. Build production-ready applications with confidence.",
+    ...course,
+    description: course.description || "Master advanced concepts and build production-ready applications with confidence.",
     totalLessons: 24,
     totalTests: 8,
     curriculum: [
-      { id: 1, type: 'quiz', title: 'Start Quiz - React Fundamentals', duration: '15 min', locked: false },
-      { id: 2, type: 'lesson', title: 'React Hooks Deep Dive', duration: '45 min', locked: false },
-      { id: 3, type: 'lesson', title: 'useState and useEffect Mastery', duration: '60 min', locked: false },
-      { id: 4, type: 'test', title: 'Test 1: Hooks Assessment', duration: '30 min', locked: false },
-      { id: 5, type: 'lesson', title: 'Context API and State Management', duration: '50 min', locked: true },
-      { id: 6, type: 'lesson', title: 'Custom Hooks Creation', duration: '40 min', locked: true },
-      { id: 7, type: 'test', title: 'Test 2: State Management', duration: '25 min', locked: true },
-      { id: 8, type: 'lesson', title: 'Performance Optimization', duration: '55 min', locked: true },
-      { id: 9, type: 'lesson', title: 'React.memo and useMemo', duration: '35 min', locked: true },
-      { id: 10, type: 'test', title: 'Test 3: Performance', duration: '20 min', locked: true },
-      { id: 11, type: 'lesson', title: 'Advanced Patterns', duration: '65 min', locked: true },
-      { id: 12, type: 'lesson', title: 'Compound Components', duration: '40 min', locked: true },
-      { id: 13, type: 'test', title: 'Test 4: Advanced Patterns', duration: '30 min', locked: true },
-      { id: 14, type: 'lesson', title: 'Testing React Applications', duration: '70 min', locked: true },
-      { id: 15, type: 'lesson', title: 'Jest and React Testing Library', duration: '45 min', locked: true },
-      { id: 16, type: 'test', title: 'Test 5: Testing', duration: '35 min', locked: true },
-      { id: 17, type: 'lesson', title: 'Deployment and Production', duration: '50 min', locked: true },
-      { id: 18, type: 'lesson', title: 'Build Optimization', duration: '30 min', locked: true },
-      { id: 19, type: 'test', title: 'Final Assessment', duration: '45 min', locked: true },
-      { id: 20, type: 'completion', title: 'Course Completion Certificate', duration: '5 min', locked: true }
+      { id: 1, type: 'quiz', title: 'Start Quiz - Course Fundamentals', duration: '15 min', locked: false },
+      { id: 2, type: 'lesson', title: 'Introduction to Core Concepts', duration: '45 min', locked: false },
+      { id: 3, type: 'lesson', title: 'Advanced Techniques', duration: '60 min', locked: false },
+      { id: 4, type: 'test', title: 'Test 1: Fundamentals Assessment', duration: '30 min', locked: false },
+      { id: 5, type: 'lesson', title: 'Practical Applications', duration: '50 min', locked: true },
+      { id: 6, type: 'lesson', title: 'Best Practices', duration: '40 min', locked: true },
+      { id: 7, type: 'test', title: 'Test 2: Application Skills', duration: '25 min', locked: true },
+      { id: 8, type: 'lesson', title: 'Advanced Topics', duration: '55 min', locked: true },
+      { id: 9, type: 'lesson', title: 'Professional Techniques', duration: '35 min', locked: true },
+      { id: 10, type: 'test', title: 'Test 3: Advanced Skills', duration: '20 min', locked: true },
+      { id: 11, type: 'lesson', title: 'Industry Standards', duration: '65 min', locked: true },
+      { id: 12, type: 'lesson', title: 'Real-world Projects', duration: '40 min', locked: true },
+      { id: 13, type: 'test', title: 'Test 4: Project Assessment', duration: '30 min', locked: true },
+      { id: 14, type: 'lesson', title: 'Career Development', duration: '70 min', locked: true },
+      { id: 15, type: 'lesson', title: 'Portfolio Building', duration: '45 min', locked: true },
+      { id: 16, type: 'test', title: 'Final Assessment', duration: '45 min', locked: true },
+      { id: 17, type: 'completion', title: 'Course Completion Certificate', duration: '5 min', locked: true }
     ]
   };
 
@@ -88,7 +76,10 @@ const CourseDetailsPage = () => {
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-16">
-            <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors">
+            <button 
+              onClick={onBackClick}
+              className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors"
+            >
               <ArrowLeft size={20} />
               <span>Back to Dashboard</span>
             </button>
@@ -246,23 +237,23 @@ const CourseDetailsPage = () => {
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start space-x-2">
                   <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
-                  <span>Master advanced React hooks and patterns</span>
+                  <span>Master core concepts and fundamentals</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
-                  <span>Build scalable and maintainable applications</span>
+                  <span>Build practical, real-world applications</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
-                  <span>Implement performance optimization techniques</span>
+                  <span>Implement industry best practices</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
-                  <span>Test React applications effectively</span>
+                  <span>Develop professional-level skills</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
-                  <span>Deploy production-ready applications</span>
+                  <span>Create an impressive portfolio</span>
                 </li>
               </ul>
             </div>

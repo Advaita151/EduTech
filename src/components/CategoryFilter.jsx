@@ -8,7 +8,8 @@ const CategoryFilter = ({ selectedCategory, setSelectedCategory }) => {
     { id: 'design', name: 'Design' },
     { id: 'ai', name: 'AI & ML' },
     { id: 'marketing', name: 'Marketing' },
-    { id: 'security', name: 'Security' }
+    { id: 'security', name: 'Security' },
+    { id: 'Confidence Builder', name: 'Confidence Builder' }
   ];
 
   return (

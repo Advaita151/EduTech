@@ -2,7 +2,7 @@
 import React from 'react';
 import { Users, Clock, Star, Play } from 'lucide-react';
 
-const CourseCard = ({ course }) => {
+const CourseCard = ({ course, onCourseClick }) => {
   const getProgressColor = (progress) => {
     if (progress === 0) return 'bg-gray-200';
     if (progress < 50) return 'bg-red-400';
@@ -68,7 +68,10 @@ const CourseCard = ({ course }) => {
           </div>
         )}
         
-        <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center space-x-2">
+        <button 
+          onClick={() => onCourseClick(course)}
+          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center space-x-2"
+        >
           <Play size={18} />
           <span>{course.progress > 0 ? 'Continue Learning' : 'Start Course'}</span>
         </button>
