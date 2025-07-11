@@ -1,3 +1,4 @@
+// src/pages/Dashboard.jsx
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import StatsCards from '../components/StatsCards';
@@ -5,23 +6,13 @@ import CategoryFilter from '../components/CategoryFilter';
 import CourseGrid from '../components/CourseGrid';
 import CourseDetailsPage from './CourseDetailsPage';
 
-const Dashboard = () => {
+const Dashboard = ({ isAdmin = false }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [currentView, setCurrentView] = useState('dashboard'); // 'dashboard' or 'course-details'
+  const [currentView, setCurrentView] = useState('dashboard');
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-  const handleCourseClick = (course) => {
-    setSelectedCourse(course);
-    setCurrentView('course-details');
-  };
-
-  const handleBackToDashboard = () => {
-    setCurrentView('dashboard');
-    setSelectedCourse(null);
-  };
-
-  const courses = [
+  const [courses, setCourses] = useState([
     {
       id: 1,
       title: "Advanced React Development",
@@ -106,11 +97,27 @@ const Dashboard = () => {
       price: "$119",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=250&fit=crop"
     }
-  ];
+  ]);
+
+  const handleCourseClick = (course) => {
+    setSelectedCourse(course);
+    setCurrentView('course-details');
+  };
+
+  const handleBackToDashboard = () => {
+    setCurrentView('dashboard');
+    setSelectedCourse(null);
+  };
+
+  const handleCourseUpdate = (updatedCourse) => {
+    setCourses(prev =>
+      prev.map(course => (course.id === updatedCourse.id ? updatedCourse : course))
+    );
+  };
 
   const filteredCourses = courses.filter(course => {
     const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         course.instructor.toLowerCase().includes(searchQuery.toLowerCase());
+                          course.instructor.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -123,7 +130,12 @@ const Dashboard = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <StatsCards />
             <CategoryFilter selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-            <CourseGrid courses={filteredCourses} onCourseClick={handleCourseClick} />
+            <CourseGrid
+              courses={filteredCourses}
+              onCourseClick={handleCourseClick}
+              onCourseUpdate={handleCourseUpdate}
+              isAdmin={isAdmin}
+            />
           </div>
         </>
       ) : (

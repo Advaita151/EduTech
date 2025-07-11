@@ -1,17 +1,23 @@
-// components/CourseGrid.js
+// src/components/CourseGrid.jsx
 import React from 'react';
 import { Search } from 'lucide-react';
 import CourseCard from './CourseCard';
 
-const CourseGrid = ({ courses, onCourseClick }) => {
+const CourseGrid = ({ courses, onCourseClick, onCourseUpdate, isAdmin }) => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map(course => (
-          <CourseCard key={course.id} course={course} onCourseClick={onCourseClick} />
+          <CourseCard
+            key={course.id}
+            course={course}
+            onCourseClick={onCourseClick}
+            onCourseUpdate={onCourseUpdate}
+            isAdmin={isAdmin}
+          />
         ))}
       </div>
-      
+
       {courses.length === 0 && (
         <div className="text-center py-12">
           <div className="bg-gray-100 rounded-full p-4 w-16 h-16 mx-auto mb-4">
